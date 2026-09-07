@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capita — Advanced Financial Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@600;700&family=Outfit:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+  <div class="app-container">
+
+    <aside class="sidebar" aria-label="Primary navigation">
+      <button type="button" class="logo logo-home" id="logoHome" aria-label="Refresh Capita home page"
+        title="Capita home · click to refresh">
+        <span class="logo-mark-wrap" aria-hidden="true">
+          <img class="brand-logo brand-logo-dark" src="assets/savisto-mark-dark.png" alt="">
+          <img class="brand-logo brand-logo-light" src="assets/savisto-mark-light.png" alt="">
+        </span>
+        <span class="logo-copy">
+          <strong>Capita</strong>
+          <span>Dhamdhere Financial</span>
+
+        </span>
+      </button>
+
+      <nav class="nav" aria-label="Main sections">
+        <button type="button" class="nav-link active" data-view="dashboard">
+          <span class="nav-icon" aria-hidden="true">⌁</span><span>Dashboard</span>
+        </button>
+        <button type="button" class="nav-link" data-view="transactions">
+          <span class="nav-icon" aria-hidden="true">≡</span><span>Transactions</span>
+        </button>
+        <button type="button" class="nav-link" data-view="analytics">
+          <span class="nav-icon" aria-hidden="true">↗</span><span>Analytics</span>
+        </button>
+        <button type="button" class="nav-link" data-view="calculator">
+          <span class="nav-icon" aria-hidden="true">⇄</span><span>Currency Calculator</span>
+        </button>
+        <button type="button" class="nav-link" data-view="vault">
+          <span class="nav-icon" aria-hidden="true">▣</span><span>File Vault</span>
+        </button>
+        <button type="button" class="nav-link" data-view="settings">
+          <span class="nav-icon" aria-hidden="true">⚙</span><span>Settings</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button type="button" class="theme-btn" id="themeBtn" title="Toggle dark/light mode">
+          <span id="themeIcon">🌙</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+
+      <!-- Dashboard View -->
+      <section class="view active" id="dashboardView">
+        <header class="view-header">
+          <div class="eyebrow">PERSONAL FINANCE COMMAND CENTER</div>
+          <h2>Money Overview</h2>
+          <p class="subtitle">A clearer view of where your money comes from and where it goes.</p>
+          <div class="header-visual" aria-hidden="true">
+            <div class="visual-grid"></div>
+            <div class="visual-orb orb-one"></div>
+            <div class="visual-orb orb-two"></div>
+            <div class="visual-card">
+              <span class="visual-card-label">SMART MONEY</span>
+              <strong>+18.4%</strong>
+              <span class="visual-spark">╱╲╱╲╱╲</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon income-icon">💰</div>
+            <div class="stat-info">
+              <span class="stat-label">Total Income</span>
+              <span class="stat-amount" id="totalIncome">$0.00</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon expense-icon">💸</div>
+            <div class="stat-info">
+              <span class="stat-label">Total Expenses</span>
+              <span class="stat-amount" id="totalExpenses">$0.00</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon balance-icon">💎</div>
+            <div class="stat-info">
+              <span class="stat-label">Net Balance</span>
+              <span class="stat-amount" id="netBalance">$0.00</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon count-icon">📌</div>
+            <div class="stat-info">
+              <span class="stat-label">Transactions</span>
+              <span class="stat-amount" id="txCount">0</span>
+            </div>
+          </div>
+        </div>
+
+        <section class="pulse-section" aria-label="Financial highlights">
+          <div class="pulse-heading">
+            <span class="pulse-kicker">TODAY'S PULSE</span>
+            <span class="pulse-line"></span>
+          </div>
+          <div class="pulse-grid">
+            <article class="pulse-card pulse-card-main">
+              <span class="pulse-icon">↗</span>
+              <div><small>Money flow</small><strong>Stay in control</strong>
+                <p>Review your latest activity and keep spending intentional.</p>
+              </div>
+            </article>
+            <article class="pulse-card"><span class="pulse-number">01</span>
+              <div><small>Quick action</small><strong>Add a transaction</strong></div>
+            </article>
+            <article class="pulse-card"><span class="pulse-number">02</span>
+              <div><small>Insight</small><strong>Check analytics</strong></div>
+            </article>
+          </div>
+        </section>
+
+        <div class="dashboard-grid">
+          <div class="card chart-card">
+            <div class="card-header">
+              <h3>Where Your Money Goes</h3>
+              <div class="chart-modes" id="chartModes">
+                <button type="button" class="chart-mode-btn active" data-mode="pie" title="Pie Chart">◔</button>
+                <button type="button" class="chart-mode-btn" data-mode="bar" title="Bar Chart">▤</button>
+                <button type="button" class="chart-mode-btn" data-mode="doughnut" title="Doughnut Chart">◎</button>
+              </div>
+            </div>
+            <div class="chart-container">
+              <canvas id="mainChart"></canvas>
+              <p class="chart-empty" id="chartEmpty">Add transactions to see the breakdown</p>
+            </div>
+          </div>
+
+          <div class="card quick-add-card">
+            <h3 class="card-header-title">Add Money Activity</h3>
+            <form id="quickForm" class="quick-form">
+              <div class="form-group">
+                <input type="text" id="quickDesc" placeholder="What did you spend?" required maxlength="50">
+              </div>
+              <div class="form-row">
+                <input type="number" id="quickAmount" placeholder="0.00" step="0.01" min="0.01" required>
+                <select id="quickCategory">
+                  <option value="food">🍔 Food</option>
+                  <option value="bills">💡 Bills</option>
+                  <option value="shopping">🛍️ Shopping</option>
+                  <option value="transport">🚗 Transport</option>
+                  <option value="entertainment">🎮 Entertainment</option>
+                  <option value="health">🏥 Health</option>
+                  <option value="salary">💼 Salary</option>
+                  <option value="transfer">🔄 Transfer</option>
+                  <option value="other">📍 Other</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <input type="date" id="quickDate" aria-label="Transaction date">
+                <select id="quickType">
+                  <option value="expense">Expense</option>
+                  <option value="income">Income</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Add</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- Transactions View -->
+      <section class="view" id="transactionsView">
+        <header class="view-header">
+          <h2>Activity Ledger</h2>
+          <p class="subtitle">Search, filter and manage every income and expense.</p>
+        </header>
+
+        <div class="tx-controls">
+          <input type="search" id="txSearch" placeholder="Search transactions..." class="search-input">
+          <input type="date" id="txDateFrom" class="date-input">
+          <input type="date" id="txDateTo" class="date-input">
+          <div class="filter-group">
+            <button type="button" class="filter-btn active" data-filter="all">All</button>
+            <button type="button" class="filter-btn" data-filter="income">Income</button>
+            <button type="button" class="filter-btn" data-filter="expense">Expense</button>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table id="txTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th class="right">Amount</th>
+                <th class="center">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="txTableBody"></tbody>
+          </table>
+          <p class="empty-message" id="emptyMessage">No transactions found</p>
+        </div>
+      </section>
+
+      <!-- Analytics View -->
+      <section class="view" id="analyticsView">
+        <header class="view-header">
+          <h2>Money Intelligence</h2>
+          <p class="subtitle">Compare planned cash flow with earned value over an adjustable 18-week planning horizon.
+          </p>
+        </header>
+
+        <section class="card cash-flow-card" aria-labelledby="cashFlowTitle">
+          <div class="cash-flow-header">
+            <div>
+              <div class="cash-flow-kicker">PLANNING PERFORMANCE</div>
+              <h3 class="card-header-title" id="cashFlowTitle">Cash Flow (Planned / Actual)</h3>
+              <p class="cash-flow-description">Bars show weekly planned and earned values. Lines show the cumulative
+                cash-flow position.</p>
+            </div>
+            <div class="cash-flow-actions" id="cashFlowModes" aria-label="Cash flow chart mode">
+              <button type="button" class="cash-flow-mode active" data-cash-mode="combined">Combined</button>
+              <button type="button" class="cash-flow-mode" data-cash-mode="bars">Bars</button>
+              <button type="button" class="cash-flow-mode" data-cash-mode="lines">Lines</button>
+              <label class="cash-flow-range">
+                <span>Weeks</span>
+                <select id="cashFlowWeeks" aria-label="Cash flow weeks">
+                  <option value="6">6</option>
+                  <option value="12">12</option>
+                  <option value="18" selected>18</option>
+                </select>
+              </label>
+              <label class="cash-flow-range">
+                <span>View</span>
+                <select id="cashFlowGranularity" aria-label="Cash flow time grouping">
+                  <option value="weekly" selected>Weekly</option>
+                  <option value="monthly">4-Week Monthly</option>
+                </select>
+              </label>
+            </div>
+          </div>
+          <div class="cash-flow-chart-wrap">
+            <canvas id="cashFlowChart" aria-label="Cash flow planned versus actual chart"></canvas>
+            <p class="chart-empty" id="cashFlowEmpty" hidden>Cash-flow planning data is unavailable.</p>
+          </div>
+          <div class="cash-flow-legend" aria-label="Cash flow legend">
+            <span><i class="legend-swatch planned"></i> Planned Value</span>
+            <span><i class="legend-swatch earned"></i> Earned Value</span>
+            <span><i class="legend-swatch planned-line"></i> Cumulative Planned</span>
+            <span><i class="legend-swatch earned-line"></i> Cumulative Earned</span>
+          </div>
+        </section>
+
+        <div class="analytics-grid analytics-support-grid">
+          <div class="card">
+            <h3 class="card-header-title">Spending Map</h3>
+            <div id="categoryStats" class="category-list"></div>
+          </div>
+          <div class="card">
+            <h3 class="card-header-title">Largest Money Moves</h3>
+            <div id="topTransactions" class="top-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Currency Calculator View -->
+      <section class="view" id="calculatorView">
+        <header class="view-header">
+          <div class="eyebrow">FAST CONVERSION TOOL</div>
+          <h2>Currency Calculator</h2>
+          <p class="subtitle">Convert an amount between the currencies available in Capita without leaving your finance
+            workspace.</p>
+        </header>
+
+        <section class="calculator-layout" aria-label="Currency conversion calculator">
+          <div class="card calculator-card">
+            <div class="calculator-heading">
+              <span class="calculator-icon" aria-hidden="true">⇄</span>
+              <div>
+                <span class="calculator-kicker">LIVE CALCULATION</span>
+                <h3 class="card-header-title">Quick Convert</h3>
+              </div>
+            </div>
+
+            <div class="calculator-form">
+              <label class="calculator-field">
+                <span>Amount</span>
+                <input type="number" id="calcAmount" min="0" step="0.01" value="100" inputmode="decimal">
+              </label>
+
+              <label class="calculator-field">
+                <span>From</span>
+                <select id="calcFrom">
+                  <option value="USD">USD ($)</option>
+                  <option value="EUR">EUR (€)</option>
+                  <option value="GBP">GBP (£)</option>
+                  <option value="INR">INR (₹)</option>
+                  <option value="JPY">JPY (¥)</option>
+                </select>
+              </label>
+
+              <button type="button" class="btn btn-secondary calculator-swap" id="calcSwap" title="Swap currencies">↕
+                Swap</button>
+
+              <label class="calculator-field">
+                <span>To</span>
+                <select id="calcTo">
+                  <option value="USD">USD ($)</option>
+                  <option value="EUR">EUR (€)</option>
+                  <option value="GBP">GBP (£)</option>
+                  <option value="INR" selected>INR (₹)</option>
+                  <option value="JPY">JPY (¥)</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="calculator-actions-row">
+              <button type="button" class="btn btn-primary calculator-action" id="calcConvert">Calculate
+                Conversion</button>
+              <button type="button" class="btn btn-secondary calculator-reset" id="calcReset">Reset</button>
+            </div>
+
+            <div class="calculator-result" aria-live="polite">
+              <span class="calculator-result-label">Converted Amount</span>
+              <strong id="calcResult">₹0.00</strong>
+              <span id="calcRate" class="calculator-rate">1 USD ≈ 83.00 INR</span>
+              <small class="calculator-rate-source">Local reference rate • for estimates</small>
+            </div>
+          </div>
+
+          <aside class="card calculator-info">
+            <span class="info-badge">CAPITA TOOLKIT</span>
+            <h3>Easy, fast, and local.</h3>
+            <p>Use the calculator for quick planning, budgeting, or checking values before adding a transaction.</p>
+            <div class="rate-list">
+              <div><span>USD</span><strong>Base</strong></div>
+              <div><span>EUR</span><strong>Reference</strong></div>
+              <div><span>GBP</span><strong>Reference</strong></div>
+              <div><span>INR</span><strong>Reference</strong></div>
+              <div><span>JPY</span><strong>Reference</strong></div>
+            </div>
+            <small>Reference conversion rates are stored locally in this demo and are intended for quick estimates, not
+              live market settlement.</small>
+          </aside>
+        </section>
+      </section>
+
+      <!-- Secure File Vault View -->
+      <section class="view" id="vaultView">
+        <header class="view-header">
+          <div class="eyebrow">LOCAL FINANCIAL DOCUMENT VAULT</div>
+          <h2>Secure File Vault</h2>
+          <p class="subtitle">Store bank statements, Excel/CSV files, PDFs and related records locally in an encrypted
+            browser vault.</p>
+        </header>
+
+        <section class="vault-security card" aria-labelledby="vaultSecurityTitle">
+          <div class="vault-security-main">
+            <div class="vault-lock" aria-hidden="true">⌁</div>
+            <div>
+              <span class="vault-kicker">PRIVATE BY DESIGN</span>
+              <h3 id="vaultSecurityTitle">Your files stay on this device</h3>
+              <p>Files are encrypted before they are stored in IndexedDB. Capita does not upload them to a server. Your
+                vault password is not stored by the app.</p>
+            </div>
+          </div>
+          <div class="vault-status-wrap">
+            <span class="vault-status" id="vaultStatus">Checking vault…</span>
+            <button type="button" class="btn btn-secondary" id="vaultLockBtn" hidden>Lock Vault</button>
+          </div>
+        </section>
+
+        <section class="card vault-auth-card" id="vaultAuthCard">
+          <div class="vault-auth-grid">
+            <div>
+              <span class="vault-kicker" id="vaultAuthKicker">FIRST-TIME SETUP</span>
+              <h3 class="card-header-title" id="vaultAuthTitle">Create your secure file vault</h3>
+              <p class="vault-auth-help" id="vaultAuthHelp">Choose a password with at least 6 characters. You will need
+                it each time you open the vault.</p>
+            </div>
+            <form id="vaultAuthForm" class="vault-auth-form">
+              <label class="vault-field"><span>Password</span><input type="password" id="vaultPassword" minlength="6"
+                  autocomplete="new-password" required></label>
+              <label class="vault-field" id="vaultConfirmField"><span>Confirm password</span><input type="password"
+                  id="vaultConfirmPassword" minlength="6" autocomplete="new-password"></label>
+              <button type="submit" class="btn btn-primary" id="vaultAuthBtn">Create Vault</button>
+            </form>
+          </div>
+          <p class="vault-warning">Important: the password is not recoverable. Losing it means the encrypted files
+            cannot be opened.</p>
+        </section>
+
+        <section class="vault-workspace" id="vaultWorkspace" hidden>
+          <section class="card vault-upload-card">
+            <div class="vault-upload-head">
+              <div>
+                <span class="vault-kicker">ADD DOCUMENTS</span>
+                <h3 class="card-header-title">Import financial files</h3>
+                <p class="vault-auth-help">Supported: PDF, XLS, XLSX, CSV, OFX, QFX, QBO, QIF, TXT and common statement
+                  images. Maximum 25 MB per file.</p>
+              </div>
+              <label class="btn btn-primary vault-upload-btn" for="vaultFileInput">Choose Files</label>
+              <input class="hidden-input" type="file" id="vaultFileInput" multiple
+                accept=".pdf,.xls,.xlsx,.csv,.ofx,.qfx,.qbo,.qif,.txt,.png,.jpg,.jpeg">
+            </div>
+
+            <div class="vault-dropzone" id="vaultDropzone" tabindex="0" role="button"
+              aria-label="Drop financial files here or choose files">
+              <div class="vault-drop-icon" aria-hidden="true">↥</div>
+              <strong>Drop files here</strong>
+              <span>Bank statements, spreadsheets and PDFs can be kept together in one vault.</span>
+            </div>
+
+            <div class="vault-add-meta" id="vaultAddMeta" hidden>
+              <label class="vault-field"><span>Document category</span>
+                <select id="vaultCategory">
+                  <option>Bank Statement</option>
+                  <option>Excel / Spreadsheet</option>
+                  <option>PDF Document</option>
+                  <option>Transaction Export</option>
+                  <option>Receipt / Invoice</option>
+                  <option>Other</option>
+                </select>
+              </label>
+              <label class="vault-field vault-notes-field"><span>Notes (optional)</span><input type="text"
+                  id="vaultNotes" maxlength="500" placeholder="e.g. HDFC April statement"></label>
+              <button type="button" class="btn btn-secondary" id="vaultSaveSelected">Store Selected Files</button>
+            </div>
+            <div class="vault-progress" id="vaultProgress" hidden aria-live="polite">
+              <div class="vault-progress-head"><strong id="vaultProgressLabel">Preparing files…</strong><span
+                  id="vaultProgressValue">0%</span></div>
+              <div class="vault-progress-track"><span id="vaultProgressBar"></span></div>
+              <div class="vault-progress-detail" id="vaultProgressDetail">Files are checked locally before secure
+                storage.</div>
+            </div>
+            <div class="vault-selection-preview" id="vaultSelectionPreview" hidden></div>
+            <p class="vault-selected" id="vaultSelected" hidden></p>
+          </section>
+
+          <section class="card vault-files-card">
+            <div class="vault-toolbar">
+              <div>
+                <span class="vault-kicker">YOUR FILES</span>
+                <h3 class="card-header-title">Stored Documents <span class="vault-count" id="vaultCount">0</span></h3>
+              </div>
+              <div class="vault-toolbar-controls">
+                <input type="search" id="vaultSearch" class="search-input"
+                  placeholder="Search name, category or notes…">
+                <select id="vaultFilter" class="vault-filter">
+                  <option value="all">All files</option>
+                  <option value="Bank Statement">Bank Statements</option>
+                  <option value="Excel / Spreadsheet">Excel / Spreadsheets</option>
+                  <option value="PDF Document">PDF Documents</option>
+                  <option value="Transaction Export">Transaction Exports</option>
+                  <option value="Receipt / Invoice">Receipts / Invoices</option>
+                  <option value="Other">Other</option>
+                </select>
+                <button type="button" class="btn btn-danger vault-clear-btn" id="vaultClearBtn">Clear Vault</button>
+              </div>
+            </div>
+            <div class="vault-grid" id="vaultFileGrid"></div>
+            <div class="vault-empty" id="vaultEmpty">Your encrypted file vault is empty. Add a financial document above.
+            </div>
+          </section>
+
+          <section class="vault-note-grid">
+            <div class="card vault-note-card"><span class="vault-note-icon">◌</span>
+              <div><strong>Local-only storage</strong>
+                <p>Files stay inside this browser profile using IndexedDB. Clearing site data can remove the vault.</p>
+              </div>
+            </div>
+            <div class="card vault-note-card"><span class="vault-note-icon">⌁</span>
+              <div><strong>Encrypted at rest</strong>
+                <p>File bytes and document metadata are protected with AES-GCM after being keyed from your password.</p>
+              </div>
+            </div>
+          </section>
+        </section>
+      </section>
+
+      <!-- Vault Preview Modal -->
+      <div class="vault-modal" id="vaultModal" hidden role="dialog" aria-modal="true" aria-labelledby="vaultModalTitle">
+        <div class="vault-modal-panel">
+          <div class="vault-modal-head">
+            <div><span class="vault-kicker">SECURE PREVIEW</span>
+              <h3 id="vaultModalTitle">Document Preview</h3>
+            </div>
+            <button type="button" class="vault-modal-close" id="vaultModalClose" aria-label="Close preview">×</button>
+          </div>
+          <div class="vault-preview" id="vaultPreview"></div>
+        </div>
+      </div>
+
+      <!-- Settings View -->
+      <section class="view" id="settingsView">
+        <header class="view-header">
+          <h2>Control Center</h2>
+          <p class="subtitle">Manage data, currency and the way Capita looks.</p>
+        </header>
+
+        <div class="settings-container">
+          <div class="card">
+            <h3 class="card-header-title">Data Management</h3>
+            <div class="setting-group">
+              <label>Export Data (JSON)</label>
+              <button id="exportBtn" class="btn btn-secondary">Download</button>
+            </div>
+            <div class="setting-group">
+              <label>Import Data (JSON)</label>
+              <input type="file" id="importFile" accept=".json" class="hidden-input">
+              <button id="importBtn" class="btn btn-secondary">Choose File</button>
+            </div>
+            <div class="setting-group">
+              <label>Clear All Data</label>
+              <button id="clearBtn" class="btn btn-danger">Clear Everything</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 class="card-header-title">Display Options</h3>
+            <div class="setting-group">
+              <label>
+                <input type="checkbox" id="showCurrency"> Show currency symbol
+              </label>
+            </div>
+            <div class="setting-group">
+              <label>
+                Currency:
+                <select id="currencySelect">
+                  <option value="USD">USD ($)</option>
+                  <option value="EUR">EUR (€)</option>
+                  <option value="GBP">GBP (£)</option>
+                  <option value="INR">INR (₹)</option>
+                  <option value="JPY">JPY (¥)</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="card info-card about-card">
+            <div class="about-heading">
+              <div>
+                <span class="section-kicker">ABOUT CAPITA</span>
+                <h3 class="card-header-title">Advanced Financial Tracker</h3>
+              </div>
+              <div class="about-heading-meta">
+                <div class="about-brand-signature" aria-label="Savisto designer logo">
+                  <img class="about-brand-logo about-brand-logo-dark" src="assets/savisto-dhamdhere-dark.png"
+                    alt="Savisto — Dhamdhere Financial — Save Today. Secure Tomorrow.">
+                  <img class="about-brand-logo about-brand-logo-light" src="assets/savisto-dhamdhere-light.png"
+                    alt="Savisto — Dhamdhere Financial — Save Today. Secure Tomorrow.">
+                </div>
+                <span class="about-badge">v3 · Aurora Edition</span>
+              </div>
+            </div>
+            <p>Capita is a focused personal-finance workspace designed to make everyday money management simpler,
+              clearer, and more controlled. It brings transactions, financial insights, currency estimates, and private
+              file storage together in one clean dashboard.</p>
+            <div class="about-grid">
+              <div><strong>Transactions</strong><span>Add, edit, search, filter, and review income and expenses.</span>
+              </div>
+              <div><strong>Analytics</strong><span>Understand spending patterns and weekly cash-flow performance.</span>
+              </div>
+              <div><strong>Currency</strong><span>Quickly estimate values across USD, EUR, GBP, INR, and JPY.</span>
+              </div>
+              <div><strong>Secure Vault</strong><span>Preview, rename, download, and delete locally encrypted
+                  files.</span></div>
+            </div>
+            <p class="text-muted about-note">Privacy-first by design: your financial records and vault files stay in
+              your browser. Capita uses local browser storage for the finance workspace and an encrypted IndexedDB vault
+              for stored files. No account or cloud sync is required for the core experience.</p>
+            <div class="about-footer-note"><span>Brand identity</span><strong>SAVISTO</strong><span>·</span><span>Save
+                Today. Secure Tomorrow.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="app-footer">
+        <span>Capita · Advanced Financial Tracker</span>
+        <span>Designed for clarity, built for control.</span>
+      </footer>
+    </main>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" defer></script>
+  <script src="data.js" defer></script>
+  <script src="file-vault.js" defer></script>
+  <script src="ui.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+
+</html>

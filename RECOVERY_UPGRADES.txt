@@ -1,0 +1,38 @@
+CAPITA V2 — RECOVERY & UPGRADE NOTES
+
+1. Transaction Management
+- Added explicit transaction date to quick entry.
+- Added Edit transaction action.
+- Preserved add/delete/search/filter/persistent storage.
+- Data module now supports updating transactions.
+
+2. Analytics Dashboard
+- Preserved weekly/monthly planning controls and chart modes.
+- Earned/Actual series now uses recent real transaction cash-flow data when available.
+- Falls back to the existing planning baseline when no recent data exists.
+
+3. Currency Calculator
+- Preserved USD/EUR/GBP/INR/JPY conversion and swap.
+- Added Reset control.
+- Added clear local-reference-rate label.
+
+4. File Vault
+- Preserved encrypted local storage.
+- Preserved PDF/image preview, download, rename, delete and confirmation.
+- Kept the existing vault implementation unchanged because these functions were already present and working in the recovered source.
+
+This package is a static client-side project. Live exchange rates and cloud storage are intentionally not introduced.
+
+V3 BRAND UPDATE
+- Added the supplied SAVISTO designer logo as theme-aware assets.
+- Dark mode uses the dark-background SAVISTO artwork; light mode uses the light-background artwork.
+- Added a compact SAVISTO mark to the existing Capita sidebar brand without changing the dashboard/navigation structure.
+- Added a SAVISTO designer signature to the existing About section.
+- Preserved the existing Capita name, Aurora UI, navigation, theme toggle, and interactions.
+
+
+V4 BRAND + VAULT POLISH
+- Added theme-specific SAVISTO + DHAMDHERE FINANCIAL lockups derived from the supplied logo artwork.
+- Added subtle theme-specific graph-paper background textures inspired by the supplied grid reference.
+- Added selected-image previews and a visible secure-storage progress indicator in File Vault.
+- Existing dashboard layout and finance functionality were preserved.
