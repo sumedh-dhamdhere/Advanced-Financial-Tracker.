@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capita — Advanced Financial Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@600;700&family=Outfit:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+  <div class="app-container">
+
+  <aside class="sidebar" aria-label="Primary navigation">
+    <button type="button" class="logo logo-home" id="logoHome" aria-label="Refresh Capita home page" title="Capita home · click to refresh">
+      <span class="logo-mark-wrap" aria-hidden="true">
+        <img class="brand-logo brand-logo-dark" src="assets/savisto-mark-dark.png" alt="">
+</span>
+      <span class="logo-copy">
+        <strong>Capita</strong>
+        <small>Dhamdhere Financial</small>
+      </span>
+    </button>
+
+    <nav class="nav" aria-label="Main sections">
+      <button type="button" class="nav-link active" data-view="dashboard">
+        <span class="nav-icon" aria-hidden="true">⌁</span><span>Dashboard</span>
+      </button>
+      <button type="button" class="nav-link" data-view="transactions">
+        <span class="nav-icon" aria-hidden="true">≡</span><span>Transactions</span>
+      </button>
+      <button type="button" class="nav-link" data-view="analytics">
+        <span class="nav-icon" aria-hidden="true">↗</span><span>Analytics</span>
+      </button>
+      <button type="button" class="nav-link" data-view="calculator">
+        <span class="nav-icon" aria-hidden="true">⇄</span><span>Currency Calculator</span>
+      </button>
+      <button type="button" class="nav-link" data-view="settings">
+        <span class="nav-icon" aria-hidden="true">⚙</span><span>Settings</span>
+      </button>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header class="app-topbar" aria-label="Capita application header">
+      <button type="button" class="topbar-brand" id="topbarHome" title="Refresh Capita home">
+        <span class="topbar-brand-name">Capita</span>
+        <span class="topbar-brand-sub">Dhamdhere Financial</span>
+      </button>
+      <div class="topbar-actions">
+        <button type="button" class="topbar-icon" id="topbarSearch" title="Search" aria-label="Open search">⌕</button>
+        <button type="button" class="topbar-icon" id="topbarNotifications" title="Notifications" aria-label="Open notifications">♧<span class="topbar-badge" id="notificationBadge">3</span></button>
+        <button type="button" class="topbar-icon" id="topbarProfile" title="Profile" aria-label="Open profile">◯</button>
+      </div>
+
+      <div class="topbar-popover" id="topbarSearchPanel" hidden>
+        <div class="popover-head"><div><span class="popover-kicker">QUICK SEARCH</span><strong>Find a transaction</strong></div><button type="button" class="popover-close" data-close-panel>×</button></div>
+        <input type="search" id="globalSearchInput" class="search-input" placeholder="Search description or category…" autocomplete="off">
+        <div class="global-search-results" id="globalSearchResults"><span class="popover-empty">Start typing to search your ledger.</span></div>
+      </div>
+
+      <div class="topbar-popover" id="topbarNotificationsPanel" hidden>
+        <div class="popover-head"><div><span class="popover-kicker">ACTIVITY</span><strong>Notifications</strong></div><button type="button" class="popover-close" data-close-panel>×</button></div>
+        <div class="notification-list" id="notificationList"></div>
+      </div>
+
+      <div class="topbar-popover profile-popover" id="topbarProfilePanel" hidden>
+        <div class="profile-card-head"><div class="profile-avatar">S</div><div><strong>Capita</strong><span>Dhamdhere Financial</span></div></div>
+        <div class="profile-meta"><div><span>Workspace</span><strong>Dhamdhere Financial</strong></div><div><span>Storage</span><strong>Browser local</strong></div><div><span>Mode</span><strong>Dark Mode</strong></div></div>
+        <button type="button" class="btn btn-secondary profile-settings-btn" data-profile-settings>Open Settings</button>
+      </div>
+    </header>
+
+    <!-- Dashboard View -->
+    <section class="view active" id="dashboardView">
+      <header class="view-header">
+        <div class="eyebrow">PERSONAL FINANCE COMMAND CENTER</div>
+        <h2>Money Overview</h2>
+        <p class="subtitle">A clearer view of where your money comes from and where it goes.</p>
+        <div class="header-visual" aria-hidden="true">
+          <div class="visual-grid"></div>
+          <div class="visual-orb orb-one"></div>
+          <div class="visual-orb orb-two"></div>
+          <div class="visual-card">
+            <span class="visual-card-label">SMART MONEY</span>
+            <strong>+18.4%</strong>
+            <span class="visual-spark">╱╲╱╲╱╲</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon income-icon">💰</div>
+          <div class="stat-info">
+            <span class="stat-label">Total Income</span>
+            <span class="stat-amount" id="totalIncome">$0.00</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon expense-icon">💸</div>
+          <div class="stat-info">
+            <span class="stat-label">Total Expenses</span>
+            <span class="stat-amount" id="totalExpenses">$0.00</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon balance-icon">💎</div>
+          <div class="stat-info">
+            <span class="stat-label">Net Balance</span>
+            <span class="stat-amount" id="netBalance">$0.00</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon count-icon">📌</div>
+          <div class="stat-info">
+            <span class="stat-label">Transactions</span>
+            <span class="stat-amount" id="txCount">0</span>
+          </div>
+        </div>
+      </div>
+
+      <section class="pulse-section" aria-label="Financial highlights">
+        <div class="pulse-heading">
+          <span class="pulse-kicker">TODAY'S PULSE</span>
+          <span class="pulse-line"></span>
+        </div>
+        <div class="pulse-grid">
+          <article class="pulse-card pulse-card-main">
+            <span class="pulse-icon">↗</span>
+            <div><small>Money flow</small><strong>Stay in control</strong><p>Review your latest activity and keep spending intentional.</p></div>
+          </article>
+          <article class="pulse-card"><span class="pulse-number">01</span><div><small>Quick action</small><strong>Add a transaction</strong></div></article>
+          <article class="pulse-card"><span class="pulse-number">02</span><div><small>Insight</small><strong>Check analytics</strong></div></article>
+        </div>
+      </section>
+
+      <div class="dashboard-grid">
+        <div class="card chart-card">
+          <div class="card-header">
+            <h3>Where Your Money Goes</h3>
+            <div class="chart-modes" id="chartModes">
+              <button type="button" class="chart-mode-btn active" data-mode="pie" title="Pie Chart">◔</button>
+              <button type="button" class="chart-mode-btn" data-mode="bar" title="Bar Chart">▤</button>
+              <button type="button" class="chart-mode-btn" data-mode="doughnut" title="Doughnut Chart">◎</button>
+            </div>
+          </div>
+          <div class="chart-container">
+            <canvas id="mainChart"></canvas>
+            <p class="chart-empty" id="chartEmpty">Add transactions to see the breakdown</p>
+          </div>
+        </div>
+
+        <div class="card quick-add-card">
+          <h3 class="card-header-title">Add Money Activity</h3>
+          <form id="quickForm" class="quick-form">
+            <div class="form-group">
+              <input type="text" id="quickDesc" placeholder="What did you spend?" required maxlength="50">
+            </div>
+            <div class="form-row">
+              <input type="number" id="quickAmount" placeholder="0.00" step="0.01" min="0.01" required>
+              <select id="quickCategory">
+                <option value="food">🍔 Food</option>
+                <option value="bills">💡 Bills</option>
+                <option value="shopping">🛍️ Shopping</option>
+                <option value="transport">🚗 Transport</option>
+                <option value="entertainment">🎮 Entertainment</option>
+                <option value="health">🏥 Health</option>
+                <option value="salary">💼 Salary</option>
+                <option value="transfer">🔄 Transfer</option>
+                <option value="other">📍 Other</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <input type="date" id="quickDate" aria-label="Transaction date">
+              <select id="quickType">
+                <option value="expense">Expense</option>
+                <option value="income">Income</option>
+              </select>
+              <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Transactions View -->
+    <section class="view" id="transactionsView">
+      <header class="view-header">
+        <h2>Activity Ledger</h2>
+        <p class="subtitle">Search, filter and manage every income and expense.</p>
+      </header>
+
+      <div class="tx-controls">
+        <input type="search" id="txSearch" placeholder="Search transactions..." class="search-input">
+        <input type="date" id="txDateFrom" class="date-input">
+        <input type="date" id="txDateTo" class="date-input">
+        <div class="filter-group">
+          <button type="button" class="filter-btn active" data-filter="all">All</button>
+          <button type="button" class="filter-btn" data-filter="income">Income</button>
+          <button type="button" class="filter-btn" data-filter="expense">Expense</button>
+        </div>
+      </div>
+
+      <div class="transaction-transfer-grid" aria-label="Transaction file transfer">
+        <section class="card transaction-transfer-card">
+          <div class="transfer-icon">↓</div>
+          <div class="transfer-copy">
+            <span class="section-kicker">TRANSACTION DOWNLOAD</span>
+            <h3>Download Transactions</h3>
+            <p>Export the current ledger in the format that fits your workflow. Capita keeps the original transaction fields intact.</p>
+          </div>
+          <div class="transfer-actions transfer-actions-wide">
+            <button type="button" class="btn btn-secondary" id="downloadTransactionsJson">JSON</button>
+            <button type="button" class="btn btn-primary" id="downloadTransactionsXls">XLS</button>
+            <button type="button" class="btn btn-secondary" id="downloadTransactionsPdf">PDF</button>
+            <button type="button" class="btn btn-ghost" id="downloadTransactionsCsv">CSV</button>
+          </div>
+        </section>
+
+        <section class="card transaction-transfer-card">
+          <div class="transfer-icon upload">↑</div>
+          <div class="transfer-copy">
+            <span class="section-kicker">TRANSACTION UPLOAD</span>
+            <h3>Upload Transactions</h3>
+            <p>Restore Capita transaction data from JSON, XLS, or a Capita-generated PDF. CSV remains supported for spreadsheet compatibility.</p>
+          </div>
+          <div class="transfer-actions transfer-actions-wide">
+            <input type="file" id="transactionUploadFile" class="hidden-input" accept=".json,.xls,.pdf,.csv,application/json,application/pdf,application/vnd.ms-excel,text/csv">
+            <button type="button" class="btn btn-secondary" id="uploadTransactionsBtn">Choose File</button>
+            <span class="transfer-file-name" id="transactionUploadName">JSON · XLS · PDF · CSV</span>
+          </div>
+        </section>
+      </div>
+
+      <div class="table-container">
+        <table id="txTable">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th class="right">Amount</th>
+              <th class="center">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="txTableBody"></tbody>
+        </table>
+        <p class="empty-message" id="emptyMessage">No transactions found</p>
+      </div>
+    </section>
+
+    <!-- Analytics View -->
+    <section class="view" id="analyticsView">
+      <header class="view-header">
+        <h2>Money Intelligence</h2>
+        <p class="subtitle">Compare planned cash flow with earned value over an adjustable 18-week planning horizon.</p>
+      </header>
+
+      <section class="card cash-flow-card" aria-labelledby="cashFlowTitle">
+        <div class="cash-flow-header">
+          <div>
+            <div class="cash-flow-kicker">PLANNING PERFORMANCE</div>
+            <h3 class="card-header-title" id="cashFlowTitle">Cash Flow (Planned / Actual)</h3>
+            <p class="cash-flow-description">Bars show weekly planned and earned values. Lines show the cumulative cash-flow position.</p>
+          </div>
+          <div class="cash-flow-actions" id="cashFlowModes" aria-label="Cash flow chart mode">
+            <button type="button" class="cash-flow-mode active" data-cash-mode="combined">Combined</button>
+            <button type="button" class="cash-flow-mode" data-cash-mode="bars">Bars</button>
+            <button type="button" class="cash-flow-mode" data-cash-mode="lines">Lines</button>
+            <label class="cash-flow-range">
+              <span>Weeks</span>
+              <select id="cashFlowWeeks" aria-label="Cash flow weeks">
+                <option value="6">6</option>
+                <option value="12">12</option>
+                <option value="18" selected>18</option>
+              </select>
+            </label>
+            <label class="cash-flow-range">
+              <span>View</span>
+              <select id="cashFlowGranularity" aria-label="Cash flow time grouping">
+                <option value="weekly" selected>Weekly</option>
+                <option value="monthly">4-Week Monthly</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <div class="cash-flow-chart-wrap">
+          <canvas id="cashFlowChart" aria-label="Cash flow planned versus actual chart"></canvas>
+          <p class="chart-empty" id="cashFlowEmpty" hidden>Cash-flow planning data is unavailable.</p>
+        </div>
+        <div class="cash-flow-legend" aria-label="Cash flow legend">
+          <span><i class="legend-swatch planned"></i> Planned Value</span>
+          <span><i class="legend-swatch earned"></i> Earned Value</span>
+          <span><i class="legend-swatch planned-line"></i> Cumulative Planned</span>
+          <span><i class="legend-swatch earned-line"></i> Cumulative Earned</span>
+        </div>
+      </section>
+
+      <div class="analytics-grid analytics-support-grid">
+        <div class="card">
+          <h3 class="card-header-title">Spending Map</h3>
+          <div id="categoryStats" class="category-list"></div>
+        </div>
+        <div class="card">
+          <h3 class="card-header-title">Largest Money Moves</h3>
+          <div id="topTransactions" class="top-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Currency Calculator View -->
+    <section class="view" id="calculatorView">
+      <header class="view-header">
+        <div class="eyebrow">FAST CONVERSION TOOL</div>
+        <h2>Currency Calculator</h2>
+        <p class="subtitle">Convert an amount between the currencies available in Capita without leaving your finance workspace.</p>
+      </header>
+
+      <section class="calculator-layout" aria-label="Currency conversion calculator">
+        <div class="card calculator-card">
+          <div class="calculator-heading">
+            <span class="calculator-icon" aria-hidden="true">⇄</span>
+            <div>
+              <span class="calculator-kicker">LIVE CALCULATION</span>
+              <h3 class="card-header-title">Quick Convert</h3>
+            </div>
+          </div>
+
+          <div class="calculator-form">
+            <label class="calculator-field">
+              <span>Amount</span>
+              <input type="number" id="calcAmount" min="0" step="0.01" value="100" inputmode="decimal">
+            </label>
+
+            <label class="calculator-field">
+              <span>From</span>
+              <select id="calcFrom">
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="INR">INR (₹)</option>
+                <option value="JPY">JPY (¥)</option>
+              </select>
+            </label>
+
+            <button type="button" class="btn btn-secondary calculator-swap" id="calcSwap" title="Swap currencies">↕ Swap</button>
+
+            <label class="calculator-field">
+              <span>To</span>
+              <select id="calcTo">
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="INR" selected>INR (₹)</option>
+                <option value="JPY">JPY (¥)</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="calculator-actions-row">
+  <button type="button" class="btn btn-primary calculator-action" id="calcConvert">Calculate Conversion</button>
+  <button type="button" class="btn btn-secondary calculator-reset" id="calcReset">Reset</button>
+</div>
+
+          <div class="calculator-result" aria-live="polite">
+            <span class="calculator-result-label">Converted Amount</span>
+            <strong id="calcResult">₹0.00</strong>
+            <span id="calcRate" class="calculator-rate">1 USD ≈ 83.00 INR</span>
+<small class="calculator-rate-source">Local reference rate • for estimates</small>
+          </div>
+        </div>
+
+        <aside class="card calculator-info">
+          <span class="info-badge">CAPITA TOOLKIT</span>
+          <h3>Easy, fast, and local.</h3>
+          <p>Use the calculator for quick planning, budgeting, or checking values before adding a transaction.</p>
+          <div class="rate-list">
+            <div><span>USD</span><strong>Base</strong></div>
+            <div><span>EUR</span><strong>Reference</strong></div>
+            <div><span>GBP</span><strong>Reference</strong></div>
+            <div><span>INR</span><strong>Reference</strong></div>
+            <div><span>JPY</span><strong>Reference</strong></div>
+          </div>
+          <small>Reference conversion rates are stored locally in this demo and are intended for quick estimates, not live market settlement.</small>
+        </aside>
+      </section>
+    </section>
+
+    <!-- Settings View -->
+    <section class="view" id="settingsView">
+      <header class="view-header">
+        <h2>Control Center</h2>
+        <p class="subtitle">Manage data, currency and the way Capita looks.</p>
+      </header>
+
+      <div class="settings-container">
+        <div class="card">
+          <h3 class="card-header-title">Data Management</h3>
+          <div class="setting-group">
+            <label>Export Data (JSON)</label>
+            <button id="exportBtn" class="btn btn-secondary">Download</button>
+          </div>
+          <div class="setting-group">
+            <label>Import Data (JSON)</label>
+            <input type="file" id="importFile" accept=".json" class="hidden-input">
+            <button id="importBtn" class="btn btn-secondary">Choose File</button>
+          </div>
+          <div class="setting-group">
+            <label>Clear All Data</label>
+            <button id="clearBtn" class="btn btn-danger">Clear Everything</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-header-title">Display Options</h3>
+          <div class="setting-group">
+            <label>
+              <input type="checkbox" id="showCurrency"> Show currency symbol
+            </label>
+          </div>
+          <div class="setting-group">
+            <label>
+              Currency:
+              <select id="currencySelect">
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="INR">INR (₹)</option>
+                <option value="JPY">JPY (¥)</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="card info-card about-card">
+          <div class="about-heading">
+            <div>
+              <span class="section-kicker">ABOUT CAPITA</span>
+              <h3 class="card-header-title">Capita — Advanced Financial Tracker</h3>
+              <p class="about-intro">A focused personal-finance command center for recording transactions, understanding cash flow, checking currency values, and keeping your financial data organized locally.</p>
+            </div>
+            <div class="about-heading-meta">
+              <div class="about-brand-block" aria-label="Dhamdhere Financial designer identity">
+                <div class="about-brand-signature about-brand-signature-large">
+                  <img class="about-brand-logo about-brand-logo-dark" src="assets/savisto-mark-dark.png" alt="Capita main logo">
+                </div>
+                <strong class="about-brand-name">Dhamdhere Financial</strong>
+                <span class="about-brand-slogan">Save Today. Secure Tomorrow.</span>
+              </div>
+              <span class="about-badge">v8· Dhamdhere Financial</span>
+            </div>
+          </div>
+          <div class="about-grid">
+            <div><strong>Transactions</strong><span>Add, edit, search, filter, and review income and expenses with clear ledger controls.</span></div>
+            <div><strong>Analytics</strong><span>See spending categories, cash-flow movement, cumulative trends, and money insights.</span></div>
+            <div><strong>Currency</strong><span>Estimate values across USD, EUR, GBP, INR, and JPY using local reference rates.</span></div>
+            <div><strong>Data Transfer</strong><span>Download transactions as JSON or CSV and upload supported backups from the Transactions section.</span></div>
+          </div>
+          <div class="about-facts">
+            <div><span>Storage </span><span> -</span><strong> Browser local storage</strong></div>
+            <div><span>Cloud account</span><span> -</span><strong>Not required</strong></div>
+            <div><span>Primary mode</span><span> -</span><strong>Dark Mode</strong></div>
+            <div><span>Brand</span><span> -</span><strong>Dhamdhere Financial</strong></div>
+          </div>
+          <p class="text-muted about-note">Capita is designed as a client-side finance workspace. Transaction data is kept in the browser for the core experience. Export your records regularly if you want an external backup. Currency figures are reference estimates and are not live market settlement rates.</p>
+          <div class="about-footer-note"><span>Designed by</span><span>S.Dhamdhere</span><span>·</span><span>Save Today. Secure Tomorrow.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="app-footer">
+      <span>Capita · Advanced Financial Tracker</span>
+      <span>Designed for clarity, built for control.</span>
+    </footer>
+  </main>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" defer></script>
+<script src="data.js" defer></script>
+<script src="ui.js" defer></script>
+<script src="app.js" defer></script>
+
+  <span data-capita-watermark aria-hidden="true" style="display:none">Dhamdhere Financial • Capita</span>
+</body>
+</html>
